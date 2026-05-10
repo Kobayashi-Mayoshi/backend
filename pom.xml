@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ==================== 项目基本信息 ==================== -->
+    <!-- 这就像项目的"身份证"，告诉Maven这个项目是谁 -->
+    <groupId>com.resume</groupId>       <!-- 组织名，类似公司域名反写 -->
+    <artifactId>resume-backend</artifactId> <!-- 项目名 -->
+    <version>1.0.0</version>            <!-- 版本号 -->
+    <packaging>jar</packaging>          <!-- 打包方式：jar文件 -->
+
+    <!-- ==================== 继承SpringBoot父项目 ==================== -->
+    <!-- 
+        这是SpringBoot的"魔法"之一！
+        通过继承parent，我们自动获得SpringBoot所有的默认配置
+        就像继承父类一样，不用自己写很多重复的配置
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.18</version> <!-- SpringBoot版本，支持Java8 -->
+    </parent>
+
+    <!-- ==================== 全局属性 ==================== -->
+    <properties>
+        <java.version>1.8</java.version> <!-- 告诉Maven用Java8编译 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- ==================== 依赖列表 ==================== -->
+    <!-- 
+        dependencies = 依赖，就是我们需要用到的第三方库
+        Maven会自动从网上下载这些库，不需要我们手动下载
+        就像手机的app store，声明要装哪些app，Maven帮你下载
+    -->
+    <dependencies>
+
+        <!-- Spring Web：让我们能写API接口，处理HTTP请求 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 不需要写version，因为parent已经帮我们管理好版本了 -->
+        </dependency>
+
+        <!-- DevTools：开发工具，修改代码后自动重启，提高开发效率 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope> <!-- 只在运行时生效，打包时不包含 -->
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Lombok：减少重复代码，比如自动生成getter/setter方法 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- SpringBoot测试包：用来写单元测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope> <!-- 只在测试时生效 -->
+        </dependency>
+
+    </dependencies>
+
+    <!-- ==================== 构建配置 ==================== -->
+    <build>
+        <plugins>
+            <!-- SpringBoot的Maven插件，让我们能用mvn命令启动项目 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 打包时排除Lombok，因为它只在编译时需要 -->
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
